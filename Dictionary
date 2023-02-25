@@ -1,0 +1,111 @@
+#Första halvan av laboration 7
+#
+
+def felhanterare(data):
+    while True:
+        try:
+            mitt=data
+            sök_pokemon(mitt)
+            return mitt
+        except AttributeError:
+            mitt=felhanterare(input('Pokemon finns inte med i vår dict. Ge mig en ny: '))
+            return mitt
+
+class DictHash:
+    def __init__(self,pokemonnamn,Typ1,Typ2,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary):
+        self.pokemonnamn=pokemonnamn 
+        self.Typ1=Typ1
+        self.Typ2=Typ2
+        self.HåP=HåP #hp...Lacka över att VSCode aldrig slutade föreslå 'help' så fick bli den stavelsen istället.
+        self.Attack=Attack
+        self.Defense=Defense
+        self.SPatk=SPatk
+        self.SPdef=SPdef
+        self.Speed=Speed
+        self.Generation=Generation
+        self.Legendary=Legendary  
+        
+
+    def __str__(self):
+        return f'{self.pokemonnamn}'
+
+    def store(self,nyckel,data):
+        pokedictionary[nyckel]=data
+
+        return nyckel,data
+
+    
+    def search(self,nyckel):
+        if nyckel in pokedictionary:
+            värdet=pokedictionary.get(nyckel) #ger ut objekt
+            return värdet
+        else:
+            raise KeyError
+      
+    def contains(self,nyckel):
+        return finns(self.pokemonnamn,nyckel)
+    
+def finns(d, nyckel):
+    if nyckel != d.pokemonnamn:
+        return False
+    elif nyckel==d.pokemonnamn:
+        return True
+
+
+
+#tagen från tidigare labb.
+pokedictionary={}
+with open(r"fil", "r", encoding = "utf-8") as allapokemons:
+        for rad in allapokemons:
+            pokemon= rad.strip()
+            specifikinfo=pokemon.split(',')  
+            pokemonnamn=specifikinfo[1]
+            Typ1=specifikinfo[2]
+            Typ2=specifikinfo[3]
+            Total=specifikinfo[4]
+            HåP=specifikinfo[5] #hp...Lacka över att VSCode aldrig slutade föreslå 'help' så fick bli den stavelsen istället.
+            Attack=specifikinfo[6]
+            Defense=specifikinfo[7]
+            SPatk=specifikinfo[8] 
+            SPdef=specifikinfo[9]
+            Speed=specifikinfo[10]
+            Generation=specifikinfo[11]
+            Legendary=specifikinfo[12]
+             
+            d=DictHash(pokemonnamn,Typ1,Typ2,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary) 
+            d.store(pokemonnamn,d) 
+pokelista=list(pokedictionary.keys())
+
+
+def bökpoke(nyckel):
+    x=d.search(nyckel)
+    print(x,f'{x.pokemonnamn} finns!!')
+
+def sök_pokemon(söktpokemon):
+    while True:
+        värdet=pokedictionary.get(söktpokemon)
+        värdet.pokemonnamn=str(värdet.pokemonnamn)
+        söktpokemon=str(söktpokemon)
+        if värdet.pokemonnamn==söktpokemon:
+            print(f'{söktpokemon} finns med i vårt dictionary')
+            break
+        else:
+            print('Finns ej')
+            break
+
+def inlagdkv(): #Fritt fram att lägga in nya pokemonkort som anropar store-metoden.
+    poke=str(input('Vad är det för pokemon du vill lägga till?: '))
+    d.store(poke,DictHash(poke, Typ1=None,Typ2=None,HåP=None,Attack=None,Defense=None,SPatk=None,SPdef=None,Speed=None,Generation=None,Legendary=None))
+    menyval()
+
+def menyval():
+    vald=int(input('Vad vill du göra?\n 1: Lägga in ny pokemonkort?\n 2: Kolla om pokemon finns?\n1 '))
+    if vald==1:
+        inlagdkv()
+    if vald==2:
+        pokemoninput=input('Vilket pokemon söks? ')
+        bökpoke(pokemoninput)
+    else:
+        print('Hejdå!')
+
+menyval()
