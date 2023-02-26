@@ -1,3 +1,4 @@
+#DD1320 Tillämpad Datalogi
 #Första halvan av laboration 7
 
 '''#Överflödig kod
@@ -62,7 +63,7 @@ def finns(d, nyckel):
 
 #tagen från tidigare labb.
 pokedictionary={}
-with open(r"C:\Users\eyasu\OneDrive\TILDALABB_\LAB7\fil", "r", encoding = "utf-8") as allapokemons:
+with open(r"fil", "r", encoding = "utf-8") as allapokemons:
         for rad in allapokemons:
             pokemon= rad.strip()
             specifikinfo=pokemon.split(',')  
@@ -84,7 +85,7 @@ with open(r"C:\Users\eyasu\OneDrive\TILDALABB_\LAB7\fil", "r", encoding = "utf-8
 
 def sökapokemon(nyckel):
     x=d.search(nyckel)
-    print(f'Pokemon finns!\n Relevant info: {x.pokemonnamn}\nTyp 1:{x.Typ1}\nTyp 2:{x.Typ2}\nTotal: {x.Total}\nHp: {x.HåP}\nAttack: {x.Attack}\nDefense: {x.Defense}\nSPatk: {x.SPatk}\nSPdef: {x.SPdef}\nSpeed: {x.Speed}\nGeneration: {x.Generation}\nLegendary: {x.Legendary}')
+    print(f'Pokemon finns!\nRelevant info om pokemon: {x.pokemonnamn}\nTyp 1:{x.Typ1}\nTyp 2:{x.Typ2}\nTotal: {x.Total}\nHp: {x.HåP}\nAttack: {x.Attack}\nDefense: {x.Defense}\nSPatk: {x.SPatk}\nSPdef: {x.SPdef}\nSpeed: {x.Speed}\nGeneration: {x.Generation}\nLegendary: {x.Legendary}')
     menyval()
 
 '''
@@ -103,7 +104,11 @@ def sök_pokemon(söktpokemon):
 '''
 def läggatillpokemon(): #Fritt fram att lägga in nya pokemonkort som anropar store-metoden.
     poke=str(input('Vad är det för pokemon du vill lägga till?: '))
-    d.store(poke,DictHash(poke, Typ1=None,Typ2=None,Total=None,HåP=None,Attack=None,Defense=None,SPatk=None,SPdef=None,Speed=None,Generation=None,Legendary=None))
+    pokemonstats=[input('Ange Typ1:'),input('Ange Typ2:'),
+                input('Ange Total:'),input('Ange Hp:'),input('Ange Attack:'),
+                input('Ange Defense:'),input('Ange SPatk:'),input('Ange SPdef:'),input('Ange Speed:'),
+                input('Ange Generation:'),input('Ange Legendary:')]
+    d.store(poke,DictHash(poke,pokemonstats[0],pokemonstats[1],pokemonstats[2],pokemonstats[3],pokemonstats[4],pokemonstats[5],pokemonstats[6],pokemonstats[7],pokemonstats[8],pokemonstats[9],pokemonstats[10]))
     menyval()
 
 def menyval():
