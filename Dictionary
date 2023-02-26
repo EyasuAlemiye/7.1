@@ -1,6 +1,6 @@
 #Första halvan av laboration 7
-#
 
+'''#Överflödig kod
 def felhanterare(data):
     while True:
         try:
@@ -10,12 +10,13 @@ def felhanterare(data):
         except AttributeError:
             mitt=felhanterare(input('Pokemon finns inte med i vår dict. Ge mig en ny: '))
             return mitt
-
+'''
 class DictHash:
-    def __init__(self,pokemonnamn,Typ1,Typ2,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary):
+    def __init__(self,pokemonnamn,Typ1,Typ2,Total,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary):
         self.pokemonnamn=pokemonnamn 
         self.Typ1=Typ1
         self.Typ2=Typ2
+        self.Total=Total
         self.HåP=HåP #hp...Lacka över att VSCode aldrig slutade föreslå 'help' så fick bli den stavelsen istället.
         self.Attack=Attack
         self.Defense=Defense
@@ -38,24 +39,30 @@ class DictHash:
     def search(self,nyckel):
         if nyckel in pokedictionary:
             värdet=pokedictionary.get(nyckel) #ger ut objekt
+
             return värdet
         else:
-            raise KeyError
+            raise KeyError('Pokemon saknas.')
       
     def contains(self,nyckel):
-        return finns(self.pokemonnamn,nyckel)
-    
+        if nyckel!=self.pokemonnamn:
+            return False
+        elif nyckel==self.pokemonnamn:
+            return True
+        #return finns(self.pokemonnamn,nyckel)
+
+'''  #Överflödig kod
 def finns(d, nyckel):
     if nyckel != d.pokemonnamn:
         return False
     elif nyckel==d.pokemonnamn:
         return True
-
+'''
 
 
 #tagen från tidigare labb.
 pokedictionary={}
-with open(r"fil", "r", encoding = "utf-8") as allapokemons:
+with open(r"C:\Users\eyasu\OneDrive\TILDALABB_\LAB7\fil", "r", encoding = "utf-8") as allapokemons:
         for rad in allapokemons:
             pokemon= rad.strip()
             specifikinfo=pokemon.split(',')  
@@ -71,16 +78,17 @@ with open(r"fil", "r", encoding = "utf-8") as allapokemons:
             Speed=specifikinfo[10]
             Generation=specifikinfo[11]
             Legendary=specifikinfo[12]
-             
-            d=DictHash(pokemonnamn,Typ1,Typ2,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary) 
+            d=DictHash(pokemonnamn,Typ1,Typ2,Total,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary) 
             d.store(pokemonnamn,d) 
-pokelista=list(pokedictionary.keys())
 
 
-def bökpoke(nyckel):
+def sökapokemon(nyckel):
     x=d.search(nyckel)
-    print(x,f'{x.pokemonnamn} finns!!')
+    print(f'Pokemon finns!\n Relevant info: {x.pokemonnamn}\nTyp 1:{x.Typ1}\nTyp 2:{x.Typ2}\nTotal: {x.Total}\nHp: {x.HåP}\nAttack: {x.Attack}\nDefense: {x.Defense}\nSPatk: {x.SPatk}\nSPdef: {x.SPdef}\nSpeed: {x.Speed}\nGeneration: {x.Generation}\nLegendary: {x.Legendary}')
+    menyval()
 
+'''
+#Överflödig
 def sök_pokemon(söktpokemon):
     while True:
         värdet=pokedictionary.get(söktpokemon)
@@ -92,20 +100,20 @@ def sök_pokemon(söktpokemon):
         else:
             print('Finns ej')
             break
-
-def inlagdkv(): #Fritt fram att lägga in nya pokemonkort som anropar store-metoden.
+'''
+def läggatillpokemon(): #Fritt fram att lägga in nya pokemonkort som anropar store-metoden.
     poke=str(input('Vad är det för pokemon du vill lägga till?: '))
-    d.store(poke,DictHash(poke, Typ1=None,Typ2=None,HåP=None,Attack=None,Defense=None,SPatk=None,SPdef=None,Speed=None,Generation=None,Legendary=None))
+    d.store(poke,DictHash(poke, Typ1=None,Typ2=None,Total=None,HåP=None,Attack=None,Defense=None,SPatk=None,SPdef=None,Speed=None,Generation=None,Legendary=None))
     menyval()
 
 def menyval():
-    vald=int(input('Vad vill du göra?\n 1: Lägga in ny pokemonkort?\n 2: Kolla om pokemon finns?\n1 '))
+    vald=int(input('Vad vill du göra?\n 1: Lägga in ny pokemonkort?\n 2: Slå upp pokemon.\n 3. Avsluta '))
     if vald==1:
-        inlagdkv()
+        läggatillpokemon()
     if vald==2:
-        pokemoninput=input('Vilket pokemon söks? ')
-        bökpoke(pokemoninput)
-    else:
-        print('Hejdå!')
+        pokemoninput=input('Vilket pokemon vill du slå upp? ')
+        sökapokemon(pokemoninput)
+    if vald==3:
+        print('Program avslutad')
 
 menyval()
