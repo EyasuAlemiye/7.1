@@ -3,6 +3,7 @@
 #Eyasu-Joshua Alemiye, Erik Hellström
 #Första halvan av laboration 7
 
+#Klass där metoderna som används är metoderna som redan finns för dictionary
 class DictHash:
     def __init__(self,pokemonnamn,Typ1,Typ2,Total,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary):
         self.pokemonnamn=pokemonnamn 
@@ -18,11 +19,11 @@ class DictHash:
         self.Generation=Generation
         self.Legendary=Legendary  
         
-
+#lagrar nyckel/data
     def store(self,nyckel,data):
         pokedictionary[nyckel]=data
 
-
+    #metod för att söka efter pokemon + dess stats
     def search(self,nyckel):
         värdet=pokedictionary.get(nyckel)
         return värdet
@@ -50,7 +51,7 @@ with open(r"fil", "r", encoding = "utf-8") as allapokemons:
             d=DictHash(pokemonnamn,Typ1,Typ2,Total,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary) 
             d.store(pokemonnamn,d) 
 
-
+#returnerade värdet är objektet för sökt pokemon. Om pokemonet inte finns hoppar vi ner till except-satsen som printar ut och sedan anropar menyval()
 def sökapokemon(nyckel):
     x=d.search(nyckel)
     while True:
@@ -62,7 +63,7 @@ def sökapokemon(nyckel):
                 menyval()
 
 
-
+#Funktion för att mata in pokemon och dess stats
 def läggatillpokemon(): 
     poke=str(input('Vad är det för pokemon du vill lägga till?: '))
     pokemonstats=[input('Ange Typ1:'),input('Ange Typ2:'),
@@ -71,7 +72,8 @@ def läggatillpokemon():
                 input('Ange Generation:'),input('Ange Legendary:')]
     d.store(poke,DictHash(poke,pokemonstats[0],pokemonstats[1],pokemonstats[2],pokemonstats[3],pokemonstats[4],pokemonstats[5],pokemonstats[6],pokemonstats[7],pokemonstats[8],pokemonstats[9],pokemonstats[10]))
     menyval()
-
+ 
+#menyval för två utav metoderna
 def menyval():
     vald=int(input('Vad vill du göra?\n 1: Lägga in kort\n 2: Slå upp pokemon.\n 3. Avsluta\n '))
     if vald==1:
