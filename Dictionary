@@ -1,17 +1,8 @@
 #DD1320 Tillämpad Datalogi
+#Laboration 7.1
+#Eyasu-Joshua Alemiye, Erik Hellström
 #Första halvan av laboration 7
 
-'''#Överflödig kod
-def felhanterare(data):
-    while True:
-        try:
-            mitt=data
-            sök_pokemon(mitt)
-            return mitt
-        except AttributeError:
-            mitt=felhanterare(input('Pokemon finns inte med i vår dict. Ge mig en ny: '))
-            return mitt
-'''
 class DictHash:
     def __init__(self,pokemonnamn,Typ1,Typ2,Total,HåP,Attack,Defense,SPatk,SPdef,Speed,Generation,Legendary):
         self.pokemonnamn=pokemonnamn 
@@ -28,37 +19,14 @@ class DictHash:
         self.Legendary=Legendary  
         
 
-    def __str__(self):
-        return f'{self.pokemonnamn}'
-
     def store(self,nyckel,data):
         pokedictionary[nyckel]=data
 
-        return nyckel,data
 
-    
     def search(self,nyckel):
-        if nyckel in pokedictionary:
-            värdet=pokedictionary.get(nyckel) #ger ut objekt
+        värdet=pokedictionary.get(nyckel)
+        return värdet
 
-            return värdet
-        else:
-            raise KeyError('Pokemon saknas.')
-      
-    def contains(self,nyckel):
-        if nyckel!=self.pokemonnamn:
-            return False
-        elif nyckel==self.pokemonnamn:
-            return True
-        #return finns(self.pokemonnamn,nyckel)
-
-'''  #Överflödig kod
-def finns(d, nyckel):
-    if nyckel != d.pokemonnamn:
-        return False
-    elif nyckel==d.pokemonnamn:
-        return True
-'''
 
 
 #tagen från tidigare labb.
@@ -85,24 +53,17 @@ with open(r"fil", "r", encoding = "utf-8") as allapokemons:
 
 def sökapokemon(nyckel):
     x=d.search(nyckel)
-    print(f'Pokemon finns!\nRelevant info om pokemon: {x.pokemonnamn}\nTyp 1:{x.Typ1}\nTyp 2:{x.Typ2}\nTotal: {x.Total}\nHp: {x.HåP}\nAttack: {x.Attack}\nDefense: {x.Defense}\nSPatk: {x.SPatk}\nSPdef: {x.SPdef}\nSpeed: {x.Speed}\nGeneration: {x.Generation}\nLegendary: {x.Legendary}')
-    menyval()
-
-'''
-#Överflödig
-def sök_pokemon(söktpokemon):
     while True:
-        värdet=pokedictionary.get(söktpokemon)
-        värdet.pokemonnamn=str(värdet.pokemonnamn)
-        söktpokemon=str(söktpokemon)
-        if värdet.pokemonnamn==söktpokemon:
-            print(f'{söktpokemon} finns med i vårt dictionary')
-            break
-        else:
-            print('Finns ej')
-            break
-'''
-def läggatillpokemon(): #Fritt fram att lägga in nya pokemonkort som anropar store-metoden.
+        try:
+            print(f'Pokemon finns!\nRelevant info om pokemon: {x.pokemonnamn}\nTyp 1:{x.Typ1}\nTyp 2:{x.Typ2}\nTotal: {x.Total}\nHp: {x.HåP}\nAttack: {x.Attack}\nDefense: {x.Defense}\nSPatk: {x.SPatk}\nSPdef: {x.SPdef}\nSpeed: {x.Speed}\nGeneration: {x.Generation}\nLegendary: {x.Legendary}')
+            menyval()
+        except AttributeError:
+                print('Pokemon saknas!')
+                menyval()
+
+
+
+def läggatillpokemon(): 
     poke=str(input('Vad är det för pokemon du vill lägga till?: '))
     pokemonstats=[input('Ange Typ1:'),input('Ange Typ2:'),
                 input('Ange Total:'),input('Ange Hp:'),input('Ange Attack:'),
@@ -112,7 +73,7 @@ def läggatillpokemon(): #Fritt fram att lägga in nya pokemonkort som anropar s
     menyval()
 
 def menyval():
-    vald=int(input('Vad vill du göra?\n 1: Lägga in ny pokemonkort?\n 2: Slå upp pokemon.\n 3. Avsluta '))
+    vald=int(input('Vad vill du göra?\n 1: Lägga in kort\n 2: Slå upp pokemon.\n 3. Avsluta\n '))
     if vald==1:
         läggatillpokemon()
     if vald==2:
