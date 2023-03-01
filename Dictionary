@@ -10,7 +10,7 @@ class DictHash:
         self.Typ1=Typ1
         self.Typ2=Typ2
         self.Total=Total
-        self.HåP=HåP #hp...Lacka över att VSCode aldrig slutade föreslå 'help' så fick bli den stavelsen istället.
+        self.HåP=HåP 
         self.Attack=Attack
         self.Defense=Defense
         self.SPatk=SPatk
@@ -40,7 +40,7 @@ with open(r"fil", "r", encoding = "utf-8") as allapokemons:
             Typ1=specifikinfo[2]
             Typ2=specifikinfo[3]
             Total=specifikinfo[4]
-            HåP=specifikinfo[5] #hp...Lacka över att VSCode aldrig slutade föreslå 'help' så fick bli den stavelsen istället.
+            HåP=specifikinfo[5] 
             Attack=specifikinfo[6]
             Defense=specifikinfo[7]
             SPatk=specifikinfo[8] 
